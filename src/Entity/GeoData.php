@@ -45,11 +45,13 @@ class GeoData
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"geo_data:read", "geo_data:write"})
      */
     private $humidity;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"geo_data:read", "geo_data:write"})
      */
     private $airPressure;
 
