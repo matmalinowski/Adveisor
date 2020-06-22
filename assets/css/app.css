@@ -1,0 +1,15 @@
+@import '~vuetify/dist/vuetify.css';
+
+#nprogress .bar {
+  height:15px;
+}
+
+#nprogress .bar {
+  background: purple;
+  z-index: 100;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: blue;
+  border-left-color: blue;
+}
