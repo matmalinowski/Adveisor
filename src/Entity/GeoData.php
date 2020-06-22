@@ -38,22 +38,20 @@ class GeoData
     private $temperature;
 
     /**
-     * @ORM\Column(type="float")
-     * @Groups({"geo_data:read", "geo_data:write"})
-     */
-    private $latitude;
-
-    /**
-     * @ORM\Column(type="float")
-     * @Groups({"geo_data:read", "geo_data:write"})
-     */
-    private $longitude;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="geoData")
      * @Groups({"geo_data:read", "geo_data:write"})
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $humidity;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $airPressure;
 
     public function getId(): ?int
     {
@@ -104,6 +102,30 @@ class GeoData
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getHumidity(): ?float
+    {
+        return $this->humidity;
+    }
+
+    public function setHumidity(float $humidity): self
+    {
+        $this->humidity = $humidity;
+
+        return $this;
+    }
+
+    public function getAirPressure(): ?float
+    {
+        return $this->airPressure;
+    }
+
+    public function setAirPressure(float $airPressure): self
+    {
+        $this->airPressure = $airPressure;
 
         return $this;
     }
