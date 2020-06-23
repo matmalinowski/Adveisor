@@ -64,7 +64,7 @@ class GeoData
     public function __construct()
     {
 
-        $this->postedAt = new DateTime('now');
+        $this->postedAt = new \DateTime('now');
 
     }
 
