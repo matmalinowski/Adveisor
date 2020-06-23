@@ -15,7 +15,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ApiResource(
  *      collectionOperations={"get"},
- *      itemOperations={"get"},
+ *      itemOperations={
+ *          "get"={
+ *              "method"="GET",
+ *              "normalization_context"={"groups"={"user:item:get", "user:read"}}
+ *          }
+ *      },  
  *      normalizationContext={"groups"="user:read"},
  *      denormalizationContext={"groups"="user:write"}
  * )
@@ -26,6 +31,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user:read"})
      */
     private $id;
 
@@ -48,9 +54,15 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=GeoData::class, mappedBy="user")
-     * @Groups({"user:read"})
+     * @Groups({"user:item:get"})
      */
     private $geoData;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user:read"})
+     */
+    private $name;
 
     public function __construct()
     {
@@ -162,6 +174,18 @@ class User implements UserInterface
                 $geoData->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

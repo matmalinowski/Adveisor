@@ -33,7 +33,7 @@ class GeoData
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"geo_data:read", "geo_data:write"})
+     * @Groups({"geo_data:read", "geo_data:write", "user:item:get"})
      */
     private $temperature;
 
@@ -45,15 +45,28 @@ class GeoData
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"geo_data:read", "geo_data:write"})
+     * @Groups({"geo_data:read", "geo_data:write", "user:item:get"})
      */
     private $humidity;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"geo_data:read", "geo_data:write"})
+     * @Groups({"geo_data:read", "geo_data:write", "user:item:get"})
      */
     private $airPressure;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Groups({"geo_data:read", "user:item:get"})
+     */
+    private $postedAt;
+
+    public function __construct()
+    {
+
+        $this->postedAt = new DateTime('now');
+
+    }
 
     public function getId(): ?int
     {
@@ -128,6 +141,18 @@ class GeoData
     public function setAirPressure(float $airPressure): self
     {
         $this->airPressure = $airPressure;
+
+        return $this;
+    }
+
+    public function getPostedAt(): ?\DateTimeInterface
+    {
+        return $this->postedAt;
+    }
+
+    public function setPostedAt(\DateTimeInterface $postedAt): self
+    {
+        $this->postedAt = $postedAt;
 
         return $this;
     }

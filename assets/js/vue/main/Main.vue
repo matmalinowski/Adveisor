@@ -1,83 +1,93 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-    >
-      <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-cog</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      clipped-left
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar>
+	<div>
+	
+		<h1 class="headline pa-4">
+			Unsere Mitglieder
+		</h1>
 
-    <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="shrink">
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  :href="source"
-                  icon
-                  large
-                  target="_blank"
-                  v-on="on"
-                >
-                  <v-icon large>mdi-code-tags</v-icon>
-                </v-btn>
-              </template>
-              <span>Source</span>
-            </v-tooltip>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+		<v-card>
+				
+			<v-list-item
+				v-for="user in users"
+				:key="user['@id']"
+			>
+				
+				<v-list-item-avatar>
+					
+					<v-img
+						src="/images/person-gray-photo-placeholder-man-vector-23907840.jpg"
+					></v-img>
+				
+				</v-list-item-avatar>
 
-    <v-footer app>
-      <span>&copy; 2020</span>
-    </v-footer>
-  </v-app>
+				<v-list-item-content>
+					
+					<v-list-item-title v-text="user.name"></v-list-item-title>
+
+				</v-list-item-content>
+
+				<v-list-item-action>
+
+					<v-btn
+						text
+						color="teal"
+						link
+						:to="{ name: 'user_path', params: { id: user.id } }"
+					>
+						Schau
+					</v-btn>
+
+				</v-list-item-action>
+
+			</v-list-item>
+
+		</v-card>
+
+	</div>
+
 </template>
 
 <script>
-  export default {
-    props: {
-      source: String,
-    },
-    data: () => ({
-      drawer: null,
-    }),
-    created () {
-      this.$vuetify.theme.dark = true
-    },
-  }
+
+	import axios from 'axios';
+	
+	export default {
+
+		data: () => ({
+			users: []
+		}),
+
+		methods: {
+
+			async onLoad() {
+
+				await axios.get('/api/users').then((res) => {
+
+					console.log(res);
+
+					let users = res.data['hydra:member'];
+
+					this.users = users;
+
+					console.log(users);
+
+				}).catch((err) => {
+
+					console.log(err);
+
+				});
+
+			}
+
+		},
+
+		mounted() {
+
+			this.onLoad();
+
+		}
+
+	}
+
 </script>
