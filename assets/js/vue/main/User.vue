@@ -121,48 +121,11 @@
 
 				});
 
-				/*await axios.get('/api/users/' + id).then((res) => {
-
-					let data = res.data;
-
-					this.user = data;
-
-				}).catch((err) => {
-
-					console.log(err);
-
-				});
-
-				await axios.get('/api/users/' + id + '/geo_datas', {
-
-					params: {
-						page: 1,
-						'order[postedAt]': 'desc'
-					}
-
-				}).then((res) => {
-
-					console.log(res);
-
-					let data = res.data['hydra:member'];
-
-					this.geoData = data;
-					this.loading = false;
-					this.totalGeo = res.data['hydra:totalItems'];
-
-					this.pageCount = Math.ceil(res.data['hydra:totalItems'] / 10);
-
-				}).catch((err) => {
-
-					console.log(err);
-
-				});*/
-
 			},
 
 			resolveDate(date) {
 
-				return moment(date).format('LL, HH:mm:SSS');
+				return moment(date).format('LL, HH:mm:ss');
 
 			},
 
