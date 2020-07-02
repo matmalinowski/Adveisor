@@ -9,6 +9,7 @@
 		<v-card>
 				
 			<v-list-item
+				v-if="users.length"
 				v-for="user in users"
 				:key="user['@id']"
 			>
@@ -41,6 +42,16 @@
 				</v-list-item-action>
 
 			</v-list-item>
+
+			<div class="text-center pa-5" v-if="!users.length">
+
+				<v-progress-circular
+					:size="50"
+      				color="primary"
+      				indeterminate
+				></v-progress-circular>
+
+			</div>
 
 		</v-card>
 

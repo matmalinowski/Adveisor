@@ -94,7 +94,34 @@
 
 				const id = this.$route.params.id;
 
-				await axios.get('/api/users/' + id).then((res) => {
+				await axios.all([
+					axios.get('/api/users/' + id),
+					axios.get('/api/users/' + id + '/geo_datas', {
+
+						params: {
+							page: 1,
+							'order[postedAt]': 'desc'
+						}
+
+					})
+				]).then(axios.spread((user, geo_datas) => {
+
+					this.user = user.data;
+
+					this.geoData = geo_datas.data['hydra:member'];
+
+					this.loading = false;
+					this.totalGeo = geo_datas.data['hydra:totalItems'];
+
+					this.pageCount = Math.ceil(geo_datas.data['hydra:totalItems'] / 10);
+
+				})).catch((err) => {
+
+					console.log(err);
+
+				});
+
+				/*await axios.get('/api/users/' + id).then((res) => {
 
 					let data = res.data;
 
@@ -129,7 +156,7 @@
 
 					console.log(err);
 
-				});
+				});*/
 
 			},
 
