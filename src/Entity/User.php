@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -55,6 +56,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=GeoData::class, mappedBy="user")
      * @Groups({"user:item:get"})
+     * @ApiSubresource
      */
     private $geoData;
 

@@ -6,6 +6,9 @@ use App\Repository\GeoDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 /**
  * @ORM\Entity(repositoryClass=GeoDataRepository::class)
@@ -19,8 +22,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "get"
  *      },
  *      normalizationContext={"groups"="geo_data:read"},
- *      denormalizationContext={"groups"="geo_data:write"}
+ *      denormalizationContext={"groups"="geo_data:write"},
+ *      attributes={
+ *          "pagination_items_per_page"=10
+ *      }
  * )
+ *
+ * @ApiFilter(OrderFilter::class, properties={"postedAt"})
  */
 class GeoData
 {
