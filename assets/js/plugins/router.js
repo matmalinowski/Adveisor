@@ -18,7 +18,7 @@ const routes = [
 		component: User
 	},
 	{
-		path: '/uber-unse',
+		path: '/uber-uns',
 		name: 'about_us_path',
 		component: About
 	}
