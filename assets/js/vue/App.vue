@@ -43,11 +43,26 @@
 	    <v-app-bar
 	      	app
 	      	clipped-left
-	      	color="indigo darken-2"
+	      	color="indigo darken-1"
 	      	dark
 	    >
+      		
       		<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      		<v-toolbar-title
+				style="width: 100px"
+				class="ml-0 pl-4"
+			>
+
+				<v-img
+					src="/images/logo.jpg"
+					width="50"
+				></v-img>
+
+			</v-toolbar-title>
+      		
       		<v-toolbar-title>MWD-Münchner Wetterdienst | Gruppe 6</v-toolbar-title>
+    	
     	</v-app-bar>
 		
 		<v-main>
